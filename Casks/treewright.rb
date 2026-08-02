@@ -2,26 +2,26 @@
 cask "treewright" do
   binary "treewright", target: "tw"
 
-  version "0.1.1"
+  version "0.2.0"
 
   on_macos do
     on_intel do
-      sha256 "c987db413096c9303fd4bb3ce5c32d6ec85c30ce814feb04959c8770382dd6a2"
+      sha256 "851ecab4fdf19c168d485bec370527372dbd8394c85824021f91d51067433f22"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_darwin_amd64.tar.gz"
     end
     on_arm do
-      sha256 "0ae8dec57a34410785bbc0da7e57d98ff99f3dec2eb944850da610da59265648"
+      sha256 "2d4cec479c68a062c8538557c6fa69dca56bafc1c104070daba2871aac85a3fb"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_darwin_arm64.tar.gz"
     end
   end
 
   on_linux do
     on_intel do
-      sha256 "bd48e2544bfb3dd85a93100ff2dcd3f2214393902806614f97533d6d2e970400"
+      sha256 "c50d6dbf5df7431c5f106abc3a975768acac01e32f246ba157df1d5d09bda88c"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_linux_amd64.tar.gz"
     end
     on_arm do
-      sha256 "17d11c6da89f7c51d553a63ad7e88c40b1c85b90d75767d59b422bfcdbb9fd17"
+      sha256 "ce9fb2e39bf3f952de21b8c54075cdd5062f8aa19461009282fa064414e7316c"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_linux_arm64.tar.gz"
     end
   end
