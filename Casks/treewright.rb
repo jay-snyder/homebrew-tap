@@ -2,26 +2,56 @@
 cask "treewright" do
   binary "treewright", target: "tw"
 
-  version "0.3.0"
+  caveats do
+    replacing = cask.installed_version
+    if replacing.nil? || replacing.to_s == "0.3.1"
+      <<~FIRST_INSTALL
+        Add the shell integration to your shell's startup file:
+          eval "$(treewright shell-init zsh)"     # or bash
+          treewright shell-init fish | source
+
+        Then register a repository by running "tw setup" inside it.
+        (tw is the installed short name; every command answers to it.)
+      FIRST_INSTALL
+    else
+      <<~AFTER_UPGRADE
+        The new binary is in place. Nothing that loaded the old one knows yet,
+        so from a repository you use treewright in:
+
+          tw refresh
+
+        That rewrites every copy of the agent plugin — the user-level one, and
+        any a worktree was given when it was created, which nothing has looked
+        at since — and reloads the tmux key bindings into the server you are
+        attached to.
+
+        Open a new terminal as well: only a shell can replace its own
+        functions, so this one keeps the old wrapper until it restarts.
+        "tw doctor" says whether anything is still behind.
+      AFTER_UPGRADE
+    end
+  end
+
+  version "0.3.1"
 
   on_macos do
     on_intel do
-      sha256 "11d76f8b598db9137050de58bc3ab4a5447823edb685c1acf30f3cea3c0f2c4c"
+      sha256 "60d0b377b45f2d9d459234b64dfb28d6722591cf23dac42643eb4ef9ba6a42ec"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_darwin_amd64.tar.gz"
     end
     on_arm do
-      sha256 "e1837d532332c16432c6526ce010e2fac12f4b4f585dd1162b55543bf4477092"
+      sha256 "d07e2258c47192201062a630b1d150627a82972809cd495223964c5bed732f46"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_darwin_arm64.tar.gz"
     end
   end
 
   on_linux do
     on_intel do
-      sha256 "d3bdb8b8555759ea8036df47f255f63c3fc68670d7c72796d9a947f1f21191ec"
+      sha256 "dcd9724b9fe02ba0440ba802645b6d7ad9f380ada72309ddf292e02b2d47493c"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_linux_amd64.tar.gz"
     end
     on_arm do
-      sha256 "31b2d70f4654b984ea7fc150bb2ae9b8e7a05355dae10f05db520354e71a9955"
+      sha256 "c74e8e2cf2378dd3e48fa8883c6565fd75d637f6357d601325971122fa363610"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_linux_arm64.tar.gz"
     end
   end
@@ -48,12 +78,4 @@ cask "treewright" do
 
   # No zap stanza required
 
-  caveats <<~EOS
-    Add the shell integration to your shell's startup file:
-      eval "$(treewright shell-init zsh)"     # or bash
-      treewright shell-init fish | source
-
-    Then register a repository by running "tw setup" inside it.
-    (tw is the installed short name; every command answers to it.)
-  EOS
 end
