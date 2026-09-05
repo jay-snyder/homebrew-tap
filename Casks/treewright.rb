@@ -4,7 +4,7 @@ cask "treewright" do
 
   caveats do
     replacing = cask.installed_version
-    if replacing.nil? || replacing.to_s == "0.3.1"
+    if replacing.nil? || replacing.to_s == "0.4.0"
       <<~FIRST_INSTALL
         Add the shell integration to your shell's startup file:
           eval "$(treewright shell-init zsh)"     # or bash
@@ -32,27 +32,26 @@ cask "treewright" do
     end
   end
 
-  version "0.3.1"
+  version "0.4.0"
 
   on_macos do
-    on_intel do
-      sha256 "60d0b377b45f2d9d459234b64dfb28d6722591cf23dac42643eb4ef9ba6a42ec"
-      url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_darwin_amd64.tar.gz"
-    end
     on_arm do
-      sha256 "d07e2258c47192201062a630b1d150627a82972809cd495223964c5bed732f46"
+      sha256 "baa3146d230da6943e05aae8fcba201292c4c1e0efa24738049ce575e5fc6f34"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_darwin_arm64.tar.gz"
     end
-  end
-
-  on_linux do
     on_intel do
-      sha256 "dcd9724b9fe02ba0440ba802645b6d7ad9f380ada72309ddf292e02b2d47493c"
-      url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_linux_amd64.tar.gz"
+      sha256 "5141719acadd388f321377d12c45817a4187f88299b0b60ad89b795a10cafa46"
+      url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_darwin_amd64.tar.gz"
     end
+  end
+  on_linux do
     on_arm do
-      sha256 "c74e8e2cf2378dd3e48fa8883c6565fd75d637f6357d601325971122fa363610"
+      sha256 "d3342b7066b711a99cc995f83b46a15bc2ce303c8df0ce2ca6660f6b7deeeef4"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_linux_arm64.tar.gz"
+    end
+    on_intel do
+      sha256 "17f5edf65c480c0c2e8281a99ec32439ffe7983ebbb92e134f9dad1fed53e6c2"
+      url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_linux_amd64.tar.gz"
     end
   end
 
@@ -77,5 +76,4 @@ cask "treewright" do
   end
 
   # No zap stanza required
-
 end
