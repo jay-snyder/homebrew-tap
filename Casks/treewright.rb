@@ -4,7 +4,7 @@ cask "treewright" do
 
   caveats do
     replacing = cask.installed_version
-    if replacing.nil? || replacing.to_s == "0.4.0"
+    if replacing.nil? || replacing.to_s == "0.5.0"
       <<~FIRST_INSTALL
         Add the shell integration to your shell's startup file:
           eval "$(treewright shell-init zsh)"     # or bash
@@ -23,34 +23,33 @@ cask "treewright" do
         That rewrites every copy of the agent plugin — the user-level one, and
         any a worktree was given when it was created, which nothing has looked
         at since — and reloads the tmux key bindings into the server you are
-        attached to.
+        attached to, and the shell wrapper in the terminal you run it in.
 
-        Open a new terminal as well: only a shell can replace its own
-        functions, so this one keeps the old wrapper until it restarts.
-        "tw doctor" says whether anything is still behind.
+        Any other terminal keeps the old wrapper until it restarts, so open
+        new ones as well. "tw doctor" says whether anything is still behind.
       AFTER_UPGRADE
     end
   end
 
-  version "0.4.0"
+  version "0.5.0"
 
   on_macos do
     on_arm do
-      sha256 "baa3146d230da6943e05aae8fcba201292c4c1e0efa24738049ce575e5fc6f34"
+      sha256 "12e93e9999533faee615790ecbb23e4090277392809c4573e73e7e86ab1c9d15"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_darwin_arm64.tar.gz"
     end
     on_intel do
-      sha256 "5141719acadd388f321377d12c45817a4187f88299b0b60ad89b795a10cafa46"
+      sha256 "67bad1e0abd715943991e12c0c7f4de4c47379e7fac8145770a181634379e7f1"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_darwin_amd64.tar.gz"
     end
   end
   on_linux do
     on_arm do
-      sha256 "d3342b7066b711a99cc995f83b46a15bc2ce303c8df0ce2ca6660f6b7deeeef4"
+      sha256 "b5135240fa404693a91357e6f8771da23738fad91509f29bfab12b7eb12f0af0"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_linux_arm64.tar.gz"
     end
     on_intel do
-      sha256 "17f5edf65c480c0c2e8281a99ec32439ffe7983ebbb92e134f9dad1fed53e6c2"
+      sha256 "43113215f6062fc83c183a8a72f56c68e3263b28dd3360ae8ddb23df98843079"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_linux_amd64.tar.gz"
     end
   end
