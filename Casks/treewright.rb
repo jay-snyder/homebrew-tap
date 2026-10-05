@@ -2,9 +2,15 @@
 cask "treewright" do
   binary "treewright", target: "tw"
 
+  postflight_steps do
+    on_macos do
+      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}/treewright"]
+    end
+  end
+
   caveats do
     replacing = cask.installed_version
-    if replacing.nil? || replacing.to_s == "0.5.0"
+    if replacing.nil? || replacing.to_s == "0.5.1"
       <<~FIRST_INSTALL
         Add the shell integration to your shell's startup file:
           eval "$(treewright shell-init zsh)"     # or bash
@@ -31,25 +37,25 @@ cask "treewright" do
     end
   end
 
-  version "0.5.0"
+  version "0.5.1"
 
   on_macos do
     on_arm do
-      sha256 "12e93e9999533faee615790ecbb23e4090277392809c4573e73e7e86ab1c9d15"
+      sha256 "eb41d19e9d3f69141e079fce4a9f20c50ca5d95f01789c4e9aef21f042609b19"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_darwin_arm64.tar.gz"
     end
     on_intel do
-      sha256 "67bad1e0abd715943991e12c0c7f4de4c47379e7fac8145770a181634379e7f1"
+      sha256 "2a73940b7e3702b9ad83ea4b40916dada4fbe42820fc86ecd100ed200c320df4"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_darwin_amd64.tar.gz"
     end
   end
   on_linux do
     on_arm do
-      sha256 "b5135240fa404693a91357e6f8771da23738fad91509f29bfab12b7eb12f0af0"
+      sha256 "a4ac763d5b0fe794803ca2d535a29d4b15b83bf0fe9bc5d31e41e607fc96818e"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_linux_arm64.tar.gz"
     end
     on_intel do
-      sha256 "43113215f6062fc83c183a8a72f56c68e3263b28dd3360ae8ddb23df98843079"
+      sha256 "e8636aaf36eabb7fdff38a679f017c28d4d83795dfa9dd0db30c2041bef9fc09"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_linux_amd64.tar.gz"
     end
   end
@@ -67,12 +73,6 @@ cask "treewright" do
     ]
 
   binary "treewright"
-
-  postflight do
-    if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
-      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/treewright"]
-    end
-  end
 
   # No zap stanza required
 end
