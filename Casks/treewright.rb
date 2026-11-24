@@ -9,7 +9,7 @@ cask "treewright" do
   end
 
   caveats do
-    replacing = cask.installed_version
+    replacing = self.cask.installed_version
     if replacing.nil? || replacing.to_s == "0.7.0"
       <<~FIRST_INSTALL
         Add the shell integration to your shell's startup file:
