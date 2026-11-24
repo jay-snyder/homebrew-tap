@@ -9,8 +9,12 @@ cask "treewright" do
   end
 
   caveats do
-    replacing = self.cask.installed_version
-    if replacing.nil? || replacing.to_s == "0.7.0"
+    replacing = begin
+      self.cask.installed_version
+    rescue
+      nil
+    end
+    if replacing.nil? || replacing.to_s == "0.7.1"
       <<~FIRST_INSTALL
         Add the shell integration to your shell's startup file:
           eval "$(treewright shell-init zsh)"     # or bash
@@ -37,25 +41,25 @@ cask "treewright" do
     end
   end
 
-  version "0.7.0"
+  version "0.7.1"
 
   on_macos do
     on_arm do
-      sha256 "ebbed63283ad06fe70eaa855058b1fc0af4115c77a1962f68caa4c7fe4764c5c"
+      sha256 "ce4f076ae6683eea8447ad84ee81d9a30942ec0c32b7ad563c85ad24a286a379"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_darwin_arm64.tar.gz"
     end
     on_intel do
-      sha256 "e36d3a544f3ebfc29fc9af928560cbe329621c6a49f5dfc5ba1d7088bc63850b"
+      sha256 "431ceaa9f22614f5fd918780b0187f1bc3d0b018c918f54cc142c886357bdd15"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_darwin_amd64.tar.gz"
     end
   end
   on_linux do
     on_arm do
-      sha256 "ab02eaedf76d6aceefff107d328f8594e5992a2f805bd2b91aede32419a7f646"
+      sha256 "efcaafdec0332ff69f96b048acd166087eba7e50a6560a859befb4b73bbf9be8"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_linux_arm64.tar.gz"
     end
     on_intel do
-      sha256 "08d29770ca802fe152716b41841037f1577854d0200bb1cce8594043954d527c"
+      sha256 "2d5df76aec7538bc226fee2430cf70ee3659d8c1f758fb6136187da6bdfcee8e"
       url "https://github.com/jay-snyder/treewright/releases/download/v#{version}/treewright_#{version}_linux_amd64.tar.gz"
     end
   end
